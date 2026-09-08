@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+}
+
+td img {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+}
+
+button {
+  margin-right: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}

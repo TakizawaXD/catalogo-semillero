@@ -1,0 +1,73 @@
+<main class="catalogo">
+  <header class="catalogo__header">
+    <div>
+      <p>Catálogo de productos</p>
+      <h1>Productos</h1>
+    </div>
+
+    <button type="button" (click)="cambiarRol()">
+      Cambiar a vista
+      {{ rol() === 'admin' ? 'cliente' : 'administrador' }}
+    </button>
+  </header>
+
+  <section class="carrito">
+    <strong>
+      Ítems en el carrito: {{ cantidadCarrito() }}
+    </strong>
+
+    <span>
+      Total: {{ totalCarrito() | currency }}
+    </span>
+  </section>
+
+  <section class="filtros">
+    <label for="categoria">Filtrar por categoría:</label>
+
+    <select
+      id="categoria"
+      [value]="categoriaSeleccionada()"
+      (change)="seleccionarCategoria($any($event.target).value)"
+    >
+      <option
+        *ngFor="
+          let categoria of categorias();
+          trackBy: trackByCategoria
+        "
+        [value]="categoria"
+      >
+        {{ categoria }}
+      </option>
+    </select>
+  </section>
+
+  <p
+    *ngIf="productosFiltrados().length === 0"
+    class="estado-vacio"
+  >
+    No hay productos para esta categoría.
+  </p>
+
+  <ng-container [ngSwitch]="rol()">
+    <app-tabla-productos
+      *ngSwitchCase="'admin'"
+      [productos]="productosFiltrados()"
+      (editar)="editarProducto($event)"
+      (eliminar)="eliminarProducto($event)"
+    ></app-tabla-productos>
+
+    <section
+      *ngSwitchCase="'customer'"
+      class="productos-grid"
+    >
+      <app-targeta-producto
+        *ngFor="
+          let producto of productosFiltrados();
+          trackBy: trackById
+        "
+        [producto]="producto"
+        (agregarAlCarrito)="agregarAlCarrito($event)"
+      ></app-targeta-producto>
+    </section>
+  </ng-container>
+</main>

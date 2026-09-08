@@ -1,0 +1,21 @@
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Producto } from '../../models/producto';
+
+@Component({
+  selector: 'app-tabla-productos',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './tabla.productos.html',
+  styleUrl: './tabla.productos.css',
+})
+export class TablaProductos {
+  @Input({ required: true }) productos!: Producto[];
+
+  @Output() editar = new EventEmitter<Producto>();
+  @Output() eliminar = new EventEmitter<Producto>();
+
+  trackById(_indice: number, producto: Producto): number {
+    return producto.id;
+  }
+}

@@ -1,7 +1,4 @@
-<app-catalogo-page></app-catalogo-page>
-
-<style>
-  :host {
+:host {
   display: block;
   min-height: 100vh;
   background-color: #f4f1ea;
@@ -67,4 +64,3 @@ select {
     flex-direction: column;
   }
 }
-</style>

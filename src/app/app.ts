@@ -1,11 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { CatalogoPageComponent } from './pages/catalogo-page/catalogo-page';
 
 @Component({
-  imports: [],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [CatalogoPageComponent],
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('catalogo-semillero');
-}
+export class App {}
