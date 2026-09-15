@@ -1,11 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  finalize,
+  shareReplay,
+  switchMap,
+} from 'rxjs';
+
 import { TargetaProductoComponent } from '../../components/targeta-producto/targeta-producto';
 import { TablaProductos } from '../../components/tabla.productos/tabla.productos';
-import {
-  Producto,
-  productos as productosIniciales,
-} from '../../models/producto';
+import { Categoria } from '../../models/categoria';
+import { Producto } from '../../models/producto';
+import { CarritoService } from '../../services/carrito.service';
+import { CategoriaService } from '../../services/categoria.service';
+import { ProductoService } from '../../services/producto.service';
 
 type Rol = 'admin' | 'customer';
 
@@ -18,62 +27,60 @@ type Rol = 'admin' | 'customer';
     TablaProductos,
   ],
   templateUrl: './catalogo-page.html',
-  styleUrl: './catalogo-page.css',
+  styleUrls: ['./catalogo-page.css'],
 })
-export class CatalogoPageComponent {
-  productos = signal<Producto[]>(productosIniciales);
+export class CatalogoPageComponent{
+  private readonly productoService = inject(ProductoService);
+  private readonly categoriaService = inject(CategoriaService);
 
-  rol = signal<Rol>('customer');
+  readonly carritoService = inject(CarritoService);
 
-  categoriaSeleccionada = signal('Todas');
+  readonly rol = signal<Rol>('customer');
+  readonly cargando = signal(false);
 
-  carrito = signal<Producto[]>([]);
+  private readonly categoriaSeleccionadaSubject =
+    new BehaviorSubject<number | undefined>(undefined);
 
-  categorias = computed(() => {
-    const nombres = this.productos().map(
-      (producto) => producto.category.name,
+  readonly categorias$: Observable<Categoria[]> =
+    this.categoriaService.obtenerTodos();
+
+  readonly productos$: Observable<Producto[]> =
+    this.categoriaSeleccionadaSubject.pipe(
+      switchMap((categoryId) => {
+        this.cargando.set(true);
+
+        return this.productoService
+          .obtenerTodos(categoryId)
+          .pipe(
+            finalize(() => this.cargando.set(false)),
+          );
+      }),
+      shareReplay({
+        bufferSize: 1,
+        refCount: true,
+      }),
     );
 
-    return ['Todas', ...new Set(nombres)];
-  });
-
-  productosFiltrados = computed(() => {
-    const categoria = this.categoriaSeleccionada();
-
-    if (categoria === 'Todas') {
-      return this.productos();
-    }
-
-    return this.productos().filter(
-      (producto) => producto.category.name === categoria,
-    );
-  });
-
-  cantidadCarrito = computed(() => {
-    return this.carrito().length;
-  });
-
-  totalCarrito = computed(() => {
-    return this.carrito().reduce(
-      (total, producto) => total + producto.price,
-      0,
-    );
-  });
+  readonly errorCatalogo = this.productoService.error;
 
   cambiarRol(): void {
-    this.rol.update((rolActual) => {
-      return rolActual === 'admin' ? 'customer' : 'admin';
-    });
+    this.rol.update((rolActual) =>
+      rolActual === 'admin' ? 'customer' : 'admin',
+    );
   }
 
-  seleccionarCategoria(categoria: string): void {
-    this.categoriaSeleccionada.set(categoria);
+  cambiarCategoria(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    const valor = select.value;
+
+    const categoryId =
+      valor === 'todas' ? undefined : Number(valor);
+
+    this.categoriaSeleccionadaSubject.next(categoryId);
   }
 
   agregarAlCarrito(producto: Producto): void {
-    this.carrito.update((productosEnCarrito) => {
-      return [...productosEnCarrito, producto];
-    });
+    this.carritoService.agregar(producto);
   }
 
   editarProducto(producto: Producto): void {
@@ -81,18 +88,17 @@ export class CatalogoPageComponent {
   }
 
   eliminarProducto(producto: Producto): void {
-    this.productos.update((productosActuales) => {
-      return productosActuales.filter(
-        (productoActual) => productoActual.id !== producto.id,
-      );
-    });
+    this.carritoService.quitar(producto.id);
   }
 
   trackById(_indice: number, producto: Producto): number {
     return producto.id;
   }
 
-  trackByCategoria(_indice: number, categoria: string): string {
-    return categoria;
+  trackByCategoria(
+    _indice: number,
+    categoria: Categoria,
+  ): number {
+    return categoria.id;
   }
 }

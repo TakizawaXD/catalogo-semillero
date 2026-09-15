@@ -13,61 +13,71 @@
 
   <section class="carrito">
     <strong>
-      Ítems en el carrito: {{ cantidadCarrito() }}
+      Ítems en el carrito: {{ carritoService.cantidad() }}
     </strong>
 
     <span>
-      Total: {{ totalCarrito() | currency }}
+      Total: {{ carritoService.total() | currency }}
     </span>
   </section>
 
   <section class="filtros">
     <label for="categoria">Filtrar por categoría:</label>
 
-    <select
-      id="categoria"
-      [value]="categoriaSeleccionada()"
-      (change)="seleccionarCategoria($any($event.target).value)"
-    >
+    <select id="categoria" (change)="cambiarCategoria($event)">
+      <option value="todas">Todas</option>
+
       <option
         *ngFor="
-          let categoria of categorias();
+          let categoria of categorias$ | async;
           trackBy: trackByCategoria
         "
-        [value]="categoria"
+        [value]="categoria.id"
       >
-        {{ categoria }}
+        {{ categoria.name }}
       </option>
     </select>
   </section>
 
-  <p
-    *ngIf="productosFiltrados().length === 0"
-    class="estado-vacio"
-  >
-    No hay productos para esta categoría.
+  <p class="estado-carga" *ngIf="cargando()">
+    Cargando productos...
   </p>
 
-  <ng-container [ngSwitch]="rol()">
-    <app-tabla-productos
-      *ngSwitchCase="'admin'"
-      [productos]="productosFiltrados()"
-      (editar)="editarProducto($event)"
-      (eliminar)="eliminarProducto($event)"
-    ></app-tabla-productos>
+  <p class="estado-error" *ngIf="errorCatalogo()">
+    {{ errorCatalogo() }}
+  </p>
 
-    <section
-      *ngSwitchCase="'customer'"
-      class="productos-grid"
+  <ng-container *ngIf="productos$ | async as productos">
+    <p
+      class="estado-vacio"
+      *ngIf="!cargando() && productos.length === 0 && !errorCatalogo()"
     >
-      <app-targeta-producto
-        *ngFor="
-          let producto of productosFiltrados();
-          trackBy: trackById
-        "
-        [producto]="producto"
-        (agregarAlCarrito)="agregarAlCarrito($event)"
-      ></app-targeta-producto>
-    </section>
+      No hay productos para esta categoría.
+    </p>
+
+    <ng-container *ngIf="productos.length > 0">
+      <ng-container [ngSwitch]="rol()">
+        <app-tabla-productos
+          *ngSwitchCase="'admin'"
+          [productos]="productos"
+          (editar)="editarProducto($event)"
+          (eliminar)="eliminarProducto($event)"
+        />
+
+        <section
+          *ngSwitchCase="'customer'"
+          class="productos-grid"
+        >
+          <app-targeta-producto
+            *ngFor="
+              let producto of productos;
+              trackBy: trackById
+            "
+            [producto]="producto"
+            (agregarAlCarrito)="agregarAlCarrito($event)"
+          />
+        </section>
+      </ng-container>
+    </ng-container>
   </ng-container>
 </main>

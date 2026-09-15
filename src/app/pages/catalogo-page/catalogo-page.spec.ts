@@ -1,18 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CatalogoPageComponent as CatalogoPage } from './catalogo-page';  
+import { TestBed } from '@angular/core/testing';
+import { CatalogoPageComponent } from './catalogo-page';
+import { ProductoService } from '../../services/producto.service';
+import { CategoriaService } from '../../services/categoria.service';
 
 describe('CatalogoPage', () => {
-  let component: CatalogoPage;
-  let fixture: ComponentFixture<CatalogoPage>;
+  let component: CatalogoPageComponent;
+  let fixture: any;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CatalogoPage],
-    }).compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [CatalogoPageComponent],
+      providers: [
+        ProductoService,
+        CategoriaService,
+      ],
+    });
 
-    fixture = TestBed.createComponent(CatalogoPage);
+    fixture = TestBed.createComponent(CatalogoPageComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

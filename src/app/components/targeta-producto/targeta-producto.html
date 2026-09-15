@@ -1,12 +1,12 @@
 <article class =  "tarjeta-producto">
     <img
      class = "tarjeta-producto__imagen"
-     src = "producto.images[0]"
+    [src]="producto.images[0]"
       alt = "Imagen del producto"
     />
 
     <div class = "tarjeta-producto_contenido">
-        <p class ? = "tarjeta-producto__categoria">
+        <p class="tarjeta-producto__categoria">
             {{producto.category.name}}
             </p>
         <h2 class = "tarjeta-producto__titulo">
@@ -21,7 +21,11 @@
             {{producto.description}}
         </p>
 
-        <button class = "tarjeta-producto__boton">
+                <button
+                    type="button"
+                    class="tarjeta-producto__boton"
+                    (click)="agregarProducto()"
+                >
             Agregar al carrito
         </button>
     </div>

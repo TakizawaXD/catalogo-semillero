@@ -6,6 +6,8 @@ import { CatalogoPageComponent } from './pages/catalogo-page/catalogo-page';
   standalone: true,
   imports: [CatalogoPageComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrls: ['./app.css'],
 })
-export class App {}
+export class App {
+  title = 'catalogo-semillero';
+}
