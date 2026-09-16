@@ -1,0 +1,15 @@
+<header class="encabezado">
+  <a class="marca" routerLink="/productos">Catálogo</a>
+
+  <nav aria-label="Navegación principal">
+    <a routerLink="/productos" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }">Productos</a>
+    <a *ngIf="authService.estaAutenticado()" routerLink="/carrito" routerLinkActive="activo">Carrito</a>
+    <a *ngIf="authService.tieneRol('admin')" routerLink="/admin" routerLinkActive="activo">Administración</a>
+  </nav>
+
+  <div class="sesion">
+    <span *ngIf="authService.usuario() as usuario">{{ usuario.nombre }}</span>
+    <a *ngIf="!authService.estaAutenticado()" routerLink="/login">Iniciar sesión</a>
+    <button *ngIf="authService.estaAutenticado()" type="button" (click)="authService.cerrarSesion()">Cerrar sesión</button>
+  </div>
+</header>

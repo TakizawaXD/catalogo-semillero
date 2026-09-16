@@ -1,0 +1,26 @@
+<main>
+  <h1>Iniciar sesión</h1>
+
+  <form (ngSubmit)="iniciarSesion()">
+    <label for="nombre">Usuario</label>
+
+    <input
+      id="nombre"
+      name="nombre"
+      [(ngModel)]="nombre"
+      required
+    />
+
+    <label for="clave">Clave</label>
+
+    <input
+      id="clave"
+      name="clave"
+      type="password"
+      [(ngModel)]="clave"
+      required
+    />
+
+    <button type="submit">Ingresar</button>
+  </form>
+</main>
