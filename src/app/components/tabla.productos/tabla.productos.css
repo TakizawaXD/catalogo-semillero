@@ -1,29 +1,27 @@
-:host {
-  display: block;
-  overflow-x: auto;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
+  background: #fff;
+  border: 1px solid #ddd;
 }
 
 th,
 td {
-  padding: 12px;
-  border-bottom: 1px solid #dddddd;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
   text-align: left;
 }
 
 td img {
-  width: 64px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
 }
 
 button {
-  margin-right: 8px;
-  padding: 8px 12px;
+  padding: 6px 10px;
+  border: 1px solid #333;
+  background: #fff;
   cursor: pointer;
+  margin-right: 6px;
 }

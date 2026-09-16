@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { CatalogoPageComponent } from './pages/catalogo-page/catalogo-page';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CatalogoPageComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrls: ['./app.css'],
 })
 export class App {
   title = 'catalogo-semillero';

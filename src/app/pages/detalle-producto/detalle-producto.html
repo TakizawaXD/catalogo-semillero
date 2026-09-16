@@ -1,0 +1,31 @@
+<main class="detalle-producto" *ngIf="producto() as productoActual; else cargando">
+  <h1>{{ productoActual.title }}</h1>
+
+  <img
+    *ngIf="productoActual.images?.length"
+    [src]="productoActual.images[0]"
+    [alt]="productoActual.title"
+  />
+
+  <p class="detalle-producto__categoria">
+    {{ productoActual.category?.name ?? 'Sin categoría' }}
+  </p>
+
+  <p class="detalle-producto__precio">
+    {{ productoActual.price | currency }}
+  </p>
+
+  <p class="detalle-producto__descripcion">
+    {{ productoActual.description }}
+  </p>
+
+  <button type="button" *ngIf="puedeSalir()">
+    Editar producto
+  </button>
+</main>
+
+<ng-template #cargando>
+  <main class="detalle-producto">
+    <p>Cargando detalle del producto...</p>
+  </main>
+</ng-template>

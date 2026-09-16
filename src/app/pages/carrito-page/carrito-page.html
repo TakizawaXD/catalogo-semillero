@@ -1,0 +1,22 @@
+<main>
+  <h1>Carrito</h1>
+
+  <p *ngIf="carritoService.productos().length === 0">
+    Tu carrito está vacío.
+  </p>
+
+  <ul *ngIf="carritoService.productos().length > 0">
+    <li *ngFor="let item of carritoService.productos()">
+      {{ item.title }} - {{ item.price | currency }}
+      <button type="button" (click)="quitar(item.id)">Quitar</button>
+    </li>
+  </ul>
+
+  <p *ngIf="carritoService.productos().length > 0">
+    Total: {{ carritoService.total() | currency }}
+  </p>
+
+  <button *ngIf="carritoService.productos().length > 0" type="button" (click)="vaciar()">
+    Vaciar carrito
+  </button>
+</main>

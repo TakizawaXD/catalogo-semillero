@@ -11,8 +11,7 @@ describe('TargetaProductoComponent', () => {
     title: 'Producto de prueba',
     price: 10000,
     description: 'Descripción de prueba',
-    image: 'imagen.jpg',
-    stock: 5,
+    images: ['imagen.jpg'],
     category: {
       id: 1,
       name: 'Categoría de prueba',
@@ -40,27 +39,7 @@ describe('TargetaProductoComponent', () => {
 
     expect(element.textContent).toContain('Producto de prueba');
     expect(element.textContent).toContain('Categoría de prueba');
-    expect(element.querySelector('img')?.getAttribute('src'))
-      .toBe('imagen.jpg');
-  });
-
-  it('should show "Agotado" when stock is zero', () => {
-    component.producto = {
-      ...producto,
-      stock: 0,
-    };
-
-    fixture.detectChanges();
-
-    const element = fixture.nativeElement as HTMLElement;
-
-    expect(element.textContent).toContain('Agotado');
-  });
-
-  it('should not show "Agotado" when there is stock', () => {
-    const element = fixture.nativeElement as HTMLElement;
-
-    expect(element.textContent).not.toContain('Agotado');
+    expect(element.querySelector('img')?.getAttribute('src')).toBe('imagen.jpg');
   });
 
   it('should emit the product when clicking the cart button', () => {

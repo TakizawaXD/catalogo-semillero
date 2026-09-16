@@ -1,16 +1,33 @@
-.tarjeta-producto h2 {
-  margin: 0 0 10px;
+.tarjeta-producto {
+  background: #fff;
+  border: 1px solid #ddd;
 }
 
-.tarjeta-producto button {
-  padding: 10px 14px;
-  border: 0;
-  border-radius: 4px;
-  background-color: #222;
-  color: white;
+.tarjeta-producto__imagen {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.tarjeta-producto_contenido {
+  padding: 12px;
+}
+
+.tarjeta-producto__categoria,
+.tarjeta-producto__precio,
+.tarjeta-producto__descripcion,
+.tarjeta-producto__titulo {
+  margin: 0 0 8px;
+}
+
+.tarjeta-producto__titulo {
+  font-size: 18px;
+}
+
+.tarjeta-producto__boton {
+  padding: 8px 12px;
+  border: 1px solid #333;
+  background: #fff;
   cursor: pointer;
-}
-
-.tarjeta-producto button:hover {
-  background-color: #444;
 }

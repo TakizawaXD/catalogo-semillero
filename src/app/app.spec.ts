@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { App } from './app';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        App
-      ],
+      imports: [App],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
@@ -20,12 +20,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('catalogo-semillero');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('catalogo-semillero app is running!');
   });
 });
