@@ -1,67 +1,116 @@
-# Taller 3 - Catálogo de productos
+# Taller 3 - Navegación, protección de rutas y carga diferida
 
-Este documento describe la parte correspondiente al taller 3 del proyecto de catálogo de productos en Angular.
+## Contexto
 
-## Objetivo
+El taller 3 transforma el catálogo en una aplicación con rutas navegables, permisos y carga diferida para optimizar la entrega.
 
-Implementar la lógica de servicios, inyección de dependencias, consumo de APIs, observables, señales y estado reactivo para un catálogo de productos.
+## Rutas a construir
 
-## Funcionalidades desarrolladas
+- / redirige a /productos
+- /productos con filtros por query params
+- /productos/:id detalle de producto
+- /carrito con acceso protegido
+- /login con autenticación simulada
+- /admin con rutas hijas y protección por rol
+- ** redirige a página no encontrada
 
-- Carga de productos desde la API
-- Carga de categorías desde la API
-- Filtro por categoría
-- Vista de cliente y vista de administrador
-- Carrito reactivo
-- Persistencia con localStorage
-- Login básico con roles
-- Guards de autenticación y administración
-- Componentes standalone
+## Requerimientos
 
-## Estructura de servicios
+### 1. Configuración base
 
-### ProductoService
+- Usar provideRouter(routes) en app.config.ts.
+- Tener <router-outlet> en AppComponent.
+- Cada ruta debe definir title.
 
-Se encarga de consultar productos desde la API externa y manejar errores con `catchError`.
+### 2. Menú de navegación
 
-### CategoriaService
+- Encabezado fijo fuera del router-outlet.
+- Usar routerLink, no href internos.
+- Marcar la pestaña activa con routerLinkActive.
 
-Consulta la lista de categorías y las devuelve como observable tipado.
+### 3. Detalle de producto
 
-### CarritoService
+- La ruta recibe el id por parámetro.
+- El componente debe reaccionar a cambios usando paramMap.
+- Debe mostrar productos relacionados que enlazan a otros detalles.
+- Si el producto no existe, mostrar un mensaje y no una pantalla en blanco.
 
-Mantiene el estado del carrito usando `signal` y `computed`.
+### 4. Filtros en la URL
 
-## Archivos principales
+- El filtro por categoría se guarda como query param.
+- Al recargar con F5, el filtro debe mantenerse.
+- Copiar la URL y abrirla en otra pestaña debe mostrar el mismo estado.
 
-- [src/app/services/producto.service.ts](src/app/services/producto.service.ts)
-- [src/app/services/categoria.service.ts](src/app/services/categoria.service.ts)
-- [src/app/services/carrito.service.ts](src/app/services/carrito.service.ts)
-- [src/app/pages/catalogo-page/catalogo-page.ts](src/app/pages/catalogo-page/catalogo-page.ts)
-- [src/app/guards/auth.guard.ts](src/app/guards/auth.guard.ts)
-- [src/app/guards/admin.guard.ts](src/app/guards/admin.guard.ts)
+### 5. Carga diferida
 
-## Tecnologías usadas
+- /productos/:id y /carrito con loadComponent.
+- /admin con loadChildren usando admin.routes.ts.
+- Debe haber evidencia de chunks separados en ng build y Network.
 
-- Angular 22
-- TypeScript
-- RxJS
-- Signals
-- HttpClient
+### 6. Autenticación simulada
 
-## Cómo probar la aplicación
+- AuthService mínimo:
+  - iniciarSesion(usuario, clave)
+  - cerrarSesion()
+  - estaAutenticado()
+  - tieneRol(rol)
+- Si la clave es wposs123, guardar usuario en LocalStorage.
+- rol admin para administrador; cualquier otro para usuario.
 
-```bash
-npm install
-npm start
-```
+### 7. Guards
 
-Luego abre:
+- authGuard sobre /carrito.
+- Si no hay sesión, devolver UrlTree a /login con ?volverA=.
+- adminGuard sobre /admin.
+- El menú debe ocultar links sin acceso; esto no reemplaza los guards.
 
-```text
-http://localhost:4200/
-```
+### 8. CanDeactivate
 
-## Observaciones
+- Al editar un formulario del panel de administración, si hay cambios sin guardar, mostrar advertencia antes de salir.
 
-Este taller se enfocó en la separación de responsabilidades mediante servicios y en la gestión reactiva del estado.
+## Criterios de evaluación
+
+- Todas las rutas funcionan y el 404 está bien ordenado.
+- El detalle se actualiza al cambiar de producto relacionado.
+- Los filtros sobrevive a F5 y se comparten por URL.
+- Hay carga diferida real con chunks separados.
+- authGuard devuelve UrlTree y respeta volverA.
+- canMatch impide descargar el chunk de /admin.
+- CanDeactivate está implementado.
+
+## Verificación antes de entregar
+
+- ng build sin errores y con al menos tres chunks.
+- Ningún href apuntando a rutas internas.
+- Ningún snapshot.paramMap en componentes reutilizables.
+- Sin sesión, entrar a /carrito lleva a /login?volverA=%2Fcarrito.
+- Tras el login, vuelve a /carrito.
+- Como usuario común, entrar a /admin no descarga ningún chunk nuevo.
+- Filtrar y luego copiar la URL mantiene el filtro en otra pestaña.
+
+## Preguntas de sustentación
+
+### ¿Por qué el detalle cambia al navegar entre productos relacionados?
+
+Porque el componente se vuelve a instanciar o se re-suscribe a cambios de parámetros, no porque se use snapshot.
+
+### ¿Qué evidencia muestra que hay carga diferida?
+
+La salida de ng build con chunks separados y la descarga del bundle al entrar a /admin.
+
+### ¿Por qué authGuard devuelve un UrlTree?
+
+Porque el guard debe redirigir al login sin hacer navegación imperativa desde el componente.
+
+### ¿Qué pasa si alguien edita LocalStorage para poner rol admin?
+
+Puede engañar al frontend, pero eso es un problema de seguridad del cliente. La validación real debe estar en el backend.
+
+## Conceptos a estudiar
+
+- Routes y RouterOutlet
+- route params y query params
+- lazy loading con loadComponent y loadChildren
+- Guards de autenticación y acceso
+- redirecciones con UrlTree
+- navegación por URL compartible
