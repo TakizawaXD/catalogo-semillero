@@ -1,0 +1,51 @@
+.barra-navegacion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.marca {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+}
+
+.marca mat-icon {
+  margin-right: 6px;
+}
+
+.enlaces-navegacion {
+  display: flex;
+  gap: 4px;
+}
+
+.enlace-activo {
+  background: rgba(255, 255, 255, 0.18);
+  font-weight: 600;
+}
+
+.espaciador {
+  flex: 1 1 auto;
+}
+
+.zona-sesion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nombre-usuario {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .marca__texto,
+  .nombre-usuario {
+    display: none;
+  }
+}

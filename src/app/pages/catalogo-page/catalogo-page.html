@@ -1,0 +1,49 @@
+<main class="catalogo">
+  <header class="catalogo__header">
+    <div>
+      <p class="subtitulo">Explora nuestros productos</p>
+      <h1>Catálogo Principal</h1>
+    </div>
+
+    <div class="filtros">
+      <mat-form-field appearance="outline" class="filtro-categoria">
+        <mat-label>Filtrar por categoría</mat-label>
+        <mat-select value="todas" (selectionChange)="cambiarCategoria($event.value)">
+          <mat-option value="todas">Todas las categorías</mat-option>
+          <mat-option
+            *ngFor="let cat of categorias$ | async; trackBy: trackByCategoria"
+            [value]="cat.id"
+          >
+            {{ cat.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </header>
+
+  <!-- Indicador de carga con mat-progress-spinner -->
+  <div class="estado-centrado" *ngIf="cargando()">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    <p>Cargando productos...</p>
+  </div>
+
+  <div class="estado-error" *ngIf="errorCatalogo()">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <p>{{ errorCatalogo() }}</p>
+  </div>
+
+  <ng-container *ngIf="productos$ | async as productos">
+    <div class="estado-centrado" *ngIf="!cargando() && productos.length === 0 && !errorCatalogo()">
+      <mat-icon>inbox</mat-icon>
+      <p>No se encontraron productos en esta categoría.</p>
+    </div>
+
+    <section class="productos-grid" *ngIf="productos.length > 0">
+      <app-targeta-producto
+        *ngFor="let producto of productos; trackBy: trackById"
+        [producto]="producto"
+        (agregarAlCarrito)="agregarAlCarrito($event)"
+      ></app-targeta-producto>
+    </section>
+  </ng-container>
+</main>

@@ -1,0 +1,71 @@
+.contenedor-detalle {
+  width: min(1000px, calc(100% - 32px));
+  margin: 32px auto;
+  box-sizing: border-box;
+}
+
+.tarjeta-detalle {
+  padding: 24px;
+}
+
+.detalle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.detalle-imagen {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.detalle-categoria {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #666;
+  font-weight: 600;
+}
+
+.detalle-info h1 {
+  margin: 8px 0 12px;
+  font-size: 1.8rem;
+}
+
+.detalle-precio {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin: 12px 0;
+}
+
+.detalle-descripcion {
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.detalle-acciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cargando-detalle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 16px;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .detalle-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

@@ -1,0 +1,84 @@
+<main class="contenedor-login">
+  <mat-card class="tarjeta-login">
+    <mat-card-header>
+      <mat-card-title>Iniciar Sesión</mat-card-title>
+      <mat-card-subtitle>Ingresa tus credenciales para continuar</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="formulario" (ngSubmit)="iniciarSesion()" novalidate>
+        <mat-form-field appearance="outline" class="ancho-completo">
+          <mat-label>Correo electrónico</mat-label>
+          <input
+            matInput
+            id="correo"
+            type="email"
+            formControlName="correo"
+            placeholder="ejemplo@wposs.com"
+            autocomplete="email"
+          />
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="formulario.controls.correo.hasError('required')">
+            El correo es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="formulario.controls.correo.hasError('email')">
+            Ingresa un formato de correo válido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="ancho-completo">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            id="clave"
+            [type]="ocultarClave() ? 'password' : 'text'"
+            formControlName="clave"
+            autocomplete="current-password"
+          />
+          <mat-icon matPrefix>lock</mat-icon>
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="ocultarClave.set(!ocultarClave())"
+            [attr.aria-label]="ocultarClave() ? 'Mostrar contraseña' : 'Ocultar contraseña'"
+          >
+            <mat-icon>{{ ocultarClave() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="formulario.controls.clave.hasError('required')">
+            La contraseña es obligatoria.
+          </mat-error>
+          <mat-error *ngIf="formulario.controls.clave.hasError('minlength')">
+            Mínimo 4 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <div *ngIf="mensajeError()" class="mensaje-error-global" role="alert">
+          <mat-icon color="warn">error</mat-icon>
+          <span>{{ mensajeError() }}</span>
+        </div>
+
+        <button
+          mat-flat-button
+          color="primary"
+          class="ancho-completo boton-ingresar"
+          type="submit"
+          [disabled]="cargando()"
+        >
+          <mat-progress-spinner
+            *ngIf="cargando()"
+            diameter="20"
+            mode="indeterminate"
+          ></mat-progress-spinner>
+          <span *ngIf="!cargando()">Ingresar</span>
+        </button>
+      </form>
+    </mat-card-content>
+
+    <mat-card-footer class="pistas-demo">
+      <p><strong>Usuarios de prueba:</strong></p>
+      <p>Admin: <code>admin&#64;wposs.com</code> | <code>admin123</code></p>
+      <p>Usuario: <code>usuario&#64;wposs.com</code> | <code>usuario123</code></p>
+    </mat-card-footer>
+  </mat-card>
+</main>

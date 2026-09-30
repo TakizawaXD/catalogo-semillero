@@ -1,0 +1,38 @@
+<mat-card class="tarjeta-producto">
+  <img
+    mat-card-image
+    class="tarjeta-producto__imagen"
+    [src]="producto.images[0]"
+    [alt]="'Fotografía de ' + producto.title"
+    loading="lazy"
+  />
+
+  <mat-card-header>
+    <mat-card-subtitle>{{ producto.category.name }}</mat-card-subtitle>
+    <mat-card-title class="tarjeta-producto__titulo">
+      <a [routerLink]="['/productos', producto.id]">{{ producto.title }}</a>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="tarjeta-producto__precio">
+      {{ producto.price | currency }}
+    </p>
+    <p class="tarjeta-producto__descripcion">
+      {{ producto.description }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="agregarProducto()"
+      [attr.aria-label]="'Agregar ' + producto.title + ' al carrito'"
+    >
+      <mat-icon>add_shopping_cart</mat-icon>
+      Agregar
+    </button>
+  </mat-card-actions>
+</mat-card>

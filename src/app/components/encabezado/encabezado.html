@@ -1,0 +1,72 @@
+<mat-toolbar color="primary" class="barra-navegacion">
+  <a mat-button routerLink="/productos" class="marca" aria-label="Ir al inicio del catálogo">
+    <mat-icon>storefront</mat-icon>
+    <span class="marca__texto">Catálogo Wposs</span>
+  </a>
+
+  <nav class="enlaces-navegacion" aria-label="Navegación principal">
+    <a
+      mat-button
+      routerLink="/productos"
+      routerLinkActive="enlace-activo"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon>grid_view</mat-icon>
+      Productos
+    </a>
+
+    <!-- Oculto para usuarios sin sesión -->
+    <a
+      *ngIf="authService.estaAutenticado()"
+      mat-button
+      routerLink="/carrito"
+      routerLinkActive="enlace-activo"
+    >
+      <mat-icon>shopping_cart</mat-icon>
+      Carrito
+    </a>
+
+    <!-- Oculto para usuarios sin rol admin -->
+    <a
+      *ngIf="authService.tieneRol('admin')"
+      mat-button
+      routerLink="/admin"
+      routerLinkActive="enlace-activo"
+    >
+      <mat-icon>admin_panel_settings</mat-icon>
+      Admin
+    </a>
+  </nav>
+
+  <span class="espaciador"></span>
+
+  <div class="zona-sesion">
+    <ng-container *ngIf="authService.estaAutenticado(); else sinSesion">
+      <span class="nombre-usuario" *ngIf="authService.usuario() as u">
+        {{ u.nombre }}
+      </span>
+      <button
+        mat-stroked-button
+        color="warn"
+        type="button"
+        (click)="cerrarSesion()"
+        aria-label="Cerrar la sesión actual"
+      >
+        <mat-icon>logout</mat-icon>
+        Salir
+      </button>
+    </ng-container>
+
+    <ng-template #sinSesion>
+      <a
+        mat-flat-button
+        color="accent"
+        routerLink="/login"
+        aria-label="Ir a la pantalla de iniciar sesión"
+      >
+        <mat-icon>login</mat-icon>
+        Iniciar sesión
+      </a>
+    </ng-template>
+  </div>
+</mat-toolbar>

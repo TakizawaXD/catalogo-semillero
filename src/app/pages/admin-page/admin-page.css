@@ -1,0 +1,53 @@
+.panel-admin {
+  width: min(1140px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+
+.panel-admin__header {
+  margin-bottom: 24px;
+}
+
+.subtitulo {
+  color: #666;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.panel-admin__header h1 {
+  margin: 4px 0 0;
+  font-size: 2rem;
+}
+
+.contenedor-tabla {
+  background: white;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.miniatura {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin: 4px 0;
+}
+
+.celda-titulo {
+  font-weight: 500;
+  max-width: 250px;
+}
+
+.estado-carga {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  gap: 16px;
+}

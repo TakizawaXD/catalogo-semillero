@@ -1,0 +1,57 @@
+<main class="contenedor-detalle" *ngIf="!cargando() && producto() as productoActual; else estadoCarga">
+  <mat-card class="tarjeta-detalle">
+    <div class="detalle-grid">
+      <div class="detalle-imagen-contenedor">
+        <img
+          *ngIf="productoActual.images?.length"
+          class="detalle-imagen"
+          [src]="productoActual.images[0]"
+          [alt]="'Fotografía detallada de ' + productoActual.title"
+        />
+      </div>
+
+      <div class="detalle-info">
+        <span class="detalle-categoria">{{ productoActual.category?.name ?? 'Sin categoría' }}</span>
+        <h1>{{ productoActual.title }}</h1>
+        <p class="detalle-precio">{{ productoActual.price | currency }}</p>
+        <p class="detalle-descripcion">{{ productoActual.description }}</p>
+
+        <div class="detalle-acciones">
+          <button
+            mat-flat-button
+            color="primary"
+            type="button"
+            (click)="agregarAlCarrito(productoActual)"
+            [attr.aria-label]="'Agregar ' + productoActual.title + ' al carrito'"
+          >
+            <mat-icon>add_shopping_cart</mat-icon>
+            Agregar al carrito
+          </button>
+
+          <a
+            mat-stroked-button
+            routerLink="/productos"
+            aria-label="Volver a la lista de productos"
+          >
+            <mat-icon>arrow_back</mat-icon>
+            Volver al catálogo
+          </a>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</main>
+
+<ng-template #estadoCarga>
+  <main class="contenedor-detalle">
+    <div class="cargando-detalle" *ngIf="cargando()">
+      <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+      <p>Cargando detalle del producto...</p>
+    </div>
+    <div class="cargando-detalle" *ngIf="!cargando() && !producto()">
+      <mat-icon color="warn">error</mat-icon>
+      <p>El producto solicitado no fue encontrado.</p>
+      <a mat-flat-button color="primary" routerLink="/productos">Volver al catálogo</a>
+    </div>
+  </main>
+</ng-template>

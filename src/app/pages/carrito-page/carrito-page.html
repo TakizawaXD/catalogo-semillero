@@ -1,0 +1,44 @@
+<main class="carrito-contenedor">
+  <mat-card class="carrito-tarjeta">
+    <mat-card-header>
+      <mat-card-title>Tu Carrito de Compras</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="carritoService.productos().length === 0" class="carrito-vacio">
+        <mat-icon class="icono-vacio">remove_shopping_cart</mat-icon>
+        <p>Tu carrito está vacío.</p>
+        <a mat-flat-button color="primary" routerLink="/productos">Ir al catálogo</a>
+      </div>
+
+      <mat-list *ngIf="carritoService.productos().length > 0">
+        <mat-list-item *ngFor="let item of carritoService.productos()">
+          <span matListItemTitle>{{ item.title }}</span>
+          <span matListItemLine>{{ item.price | currency }}</span>
+          <button
+            mat-icon-button
+            color="warn"
+            type="button"
+            (click)="quitar(item.id)"
+            [attr.aria-label]="'Quitar ' + item.title + ' del carrito'"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+
+      <div *ngIf="carritoService.productos().length > 0" class="resumen-total">
+        <h3>Total a pagar: {{ carritoService.total() | currency }}</h3>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end" *ngIf="carritoService.productos().length > 0">
+      <button mat-stroked-button color="warn" type="button" (click)="vaciar()">
+        Vaciar carrito
+      </button>
+      <button mat-flat-button color="primary" type="button">
+        Continuar al pago
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</main>

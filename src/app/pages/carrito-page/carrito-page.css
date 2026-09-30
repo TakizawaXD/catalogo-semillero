@@ -1,0 +1,30 @@
+.carrito-contenedor {
+  width: min(720px, calc(100% - 32px));
+  margin: 32px auto;
+  box-sizing: border-box;
+}
+
+.carrito-tarjeta {
+  padding: 16px;
+}
+
+.carrito-vacio {
+  text-align: center;
+  padding: 48px 16px;
+  color: #666;
+}
+
+.icono-vacio {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  opacity: 0.5;
+  margin-bottom: 12px;
+}
+
+.resumen-total {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  text-align: right;
+}

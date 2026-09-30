@@ -1,0 +1,79 @@
+<main class="panel-admin">
+  <header class="panel-admin__header">
+    <div>
+      <p class="subtitulo">Gestión de Inventario</p>
+      <h1>Panel de Administración</h1>
+    </div>
+  </header>
+
+  <div class="estado-carga" *ngIf="cargando()">
+    <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+    <p>Cargando tabla de productos...</p>
+  </div>
+
+  <div class="contenedor-tabla mat-elevation-z3" [hidden]="cargando()">
+    <table mat-table [dataSource]="dataSource" aria-label="Tabla de gestión de productos">
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let p">{{ p.id }}</td>
+      </ng-container>
+
+      <!-- Miniatura -->
+      <ng-container matColumnDef="miniatura">
+        <th mat-header-cell *matHeaderCellDef>Imagen</th>
+        <td mat-cell *matCellDef="let p">
+          <img
+            class="miniatura"
+            [src]="p.images[0]"
+            [alt]="'Miniatura de ' + p.title"
+            loading="lazy"
+          />
+        </td>
+      </ng-container>
+
+      <!-- Título -->
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let p" class="celda-titulo">{{ p.title }}</td>
+      </ng-container>
+
+      <!-- Categoría -->
+      <ng-container matColumnDef="categoria">
+        <th mat-header-cell *matHeaderCellDef>Categoría</th>
+        <td mat-cell *matCellDef="let p">{{ p.category.name }}</td>
+      </ng-container>
+
+      <!-- Precio -->
+      <ng-container matColumnDef="precio">
+        <th mat-header-cell *matHeaderCellDef>Precio</th>
+        <td mat-cell *matCellDef="let p">{{ p.price | currency }}</td>
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let p">
+          <button
+            mat-icon-button
+            color="warn"
+            type="button"
+            (click)="confirmarEliminacion(p)"
+            [attr.aria-label]="'Eliminar producto ' + p.title"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Seleccionar página de productos"
+    ></mat-paginator>
+  </div>
+</main>
