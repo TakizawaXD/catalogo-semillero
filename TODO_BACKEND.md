@@ -9,6 +9,35 @@ Este documento contiene la hoja de ruta y la documentación futura proyectada pa
 ## 📋 Módulo 01: Fundamentos de Spring Boot (API REST en memoria)
 **Objetivo:** Crear la estructura base, modelo, repositorio en memoria, servicio y controladores REST.
 
+### 🚀 Comandos y Estructura Inicial (Módulo 01)
+
+#### Comandos para generar el proyecto
+Ejecuta estos comandos en tu terminal (en una carpeta al mismo nivel que tu frontend, NO adentro) para descargar el proyecto base:
+```bash
+mkdir catalogo-semillero-backend
+cd catalogo-semillero-backend
+curl -G https://start.spring.io/starter.zip -d dependencies=web,devtools -d javaVersion=21 -d type=maven-project -d groupId=com.wposs -d artifactId=catalogo -d name=catalogo -d packageName=com.wposs.catalogo -o catalogo.zip
+tar -xf catalogo.zip
+rm catalogo.zip
+```
+
+#### Estructura de paquetes
+Dentro de `src/main/java/com/wposs/catalogo`, crea la siguiente estructura de carpetas:
+```text
+com.wposs.catalogo
+ ├── controlador/
+ ├── modelo/
+ ├── repositorio/
+ └── servicio/
+```
+
+#### Archivos principales a crear
+Dentro de los paquetes, deberás crear estos archivos para completar el Módulo 1:
+- `modelo/Producto.java` (Usar un `record` de Java)
+- `repositorio/ProductoRepositorio.java` (Clase con anotación `@Repository`)
+- `servicio/ProductoServicio.java` (Clase con anotación `@Service`)
+- `controlador/ProductoControlador.java` (Clase con anotación `@RestController`)
+
 ### Tareas Pendientes
 - [ ] Inicializar proyecto en `start.spring.io` (Maven, Java 21, Spring Boot 3.5.x, Web, DevTools).
 - [ ] Crear estructura de paquetes `com.wposs.catalogo` (controlador, servicio, repositorio, modelo).

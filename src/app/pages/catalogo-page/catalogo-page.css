@@ -1,37 +1,49 @@
 .catalogo {
-  width: min(1140px, calc(100% - 32px));
+  width: min(1000px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 24px 0 48px;
+  padding: 40px 0 80px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 .catalogo__header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .subtitulo {
-  color: #666;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
   margin: 0;
-  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .catalogo__header h1 {
-  margin: 4px 0 0;
-  font-size: 2rem;
+  margin: 8px 0 0;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.filtros {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 24px;
 }
 
 .filtro-categoria {
-  min-width: 240px;
+  width: 100%;
 }
 
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px;
 }
 
 .estado-centrado {
@@ -39,31 +51,46 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 48px 16px;
-  color: #666;
-  gap: 12px;
+  padding: 64px 16px;
+  color: #777;
+  gap: 16px;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .estado-error {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   padding: 24px;
-  color: #b00020;
+  color: #d32f2f;
+  background: #fdeaea;
+  border-radius: 8px;
+  margin-bottom: 32px;
 }
 
-@media (max-width: 600px) {
-  .catalogo__header {
-    flex-direction: column;
-    align-items: stretch;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-
-  .filtro-categoria {
-    width: 100%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
+@media (max-width: 768px) {
+  .catalogo {
+    padding: 24px 0 48px;
+  }
+  
+  .catalogo__header h1 {
+    font-size: 2rem;
+  }
+  
   .productos-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
   }
 }
