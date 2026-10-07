@@ -1,7 +1,9 @@
 package com.wposs.catalogo.controlador;
 
-import com.wposs.catalogo.modelo.Producto;
+import com.wposs.catalogo.dto.ProductoRequestDTO;
+import com.wposs.catalogo.dto.ProductoResponseDTO;
 import com.wposs.catalogo.servicio.ProductoServicio;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,35 +21,29 @@ public class ProductoControlador {
     }
 
     @GetMapping
-    public List<Producto> obtenerTodos() {
+    public List<ProductoResponseDTO> obtenerTodos() {
         return servicio.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> obtenerPorId(@PathVariable Long id) {
-        return servicio.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ProductoResponseDTO> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(servicio.buscarPorId(id));
     }
 
     @GetMapping("/categoria/{categoria}")
-    public List<Producto> obtenerPorCategoria(@PathVariable String categoria) {
+    public List<ProductoResponseDTO> obtenerPorCategoria(@PathVariable String categoria) {
         return servicio.filtrarPorCategoria(categoria);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Producto crear(@RequestBody Producto producto) {
-        return servicio.crear(producto);
+    public ProductoResponseDTO crear(@Valid @RequestBody ProductoRequestDTO dto) {
+        return servicio.crear(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto producto) {
-        try {
-            return ResponseEntity.ok(servicio.actualizar(id, producto));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ProductoResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody ProductoRequestDTO dto) {
+        return ResponseEntity.ok(servicio.actualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")

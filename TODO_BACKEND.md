@@ -1,15 +1,15 @@
-# 🚀 Plan de Desarrollo y Documentación: API Backend (Pendiente)
+# Plan de Desarrollo y Documentación: API Backend (Pendiente)
 
 Este documento contiene la hoja de ruta y la documentación futura proyectada para los 5 módulos del Backend del Catálogo WPOSS, construido con **Spring Boot 3.5.x** y **Java 21**.
 
-> **Estado actual:** Pendiente ⏳ (A desarrollar en un repositorio nuevo).
+> **Estado actual:** Pendiente (A desarrollar en un repositorio nuevo).
 
 ---
 
-## 📋 Módulo 01: Fundamentos de Spring Boot (API REST en memoria)
+## Módulo 01: Fundamentos de Spring Boot (API REST en memoria)
 **Objetivo:** Crear la estructura base, modelo, repositorio en memoria, servicio y controladores REST.
 
-### 🚀 Comandos y Estructura Inicial (Módulo 01)
+### Comandos y Estructura Inicial (Módulo 01)
 
 #### Comandos para generar el proyecto
 Ejecuta estos comandos en tu terminal (en una carpeta al mismo nivel que tu frontend, NO adentro) para descargar el proyecto base:
@@ -39,50 +39,50 @@ Dentro de los paquetes, deberás crear estos archivos para completar el Módulo 
 - `controlador/ProductoControlador.java` (Clase con anotación `@RestController`)
 
 ### Tareas Pendientes
-- [ ] Inicializar proyecto en `start.spring.io` (Maven, Java 21, Spring Boot 3.5.x, Web, DevTools).
-- [ ] Crear estructura de paquetes `com.wposs.catalogo` (controlador, servicio, repositorio, modelo).
-- [ ] Implementar modelo `Producto` como un `record` (con `BigDecimal` para precio).
-- [ ] Implementar `ProductoRepositorio` usando `ConcurrentHashMap` y `AtomicLong` con carga inicial de datos.
-- [ ] Implementar `ProductoServicio` con validaciones de negocio e inyección por constructor (campos `final`).
-- [ ] Exponer 7 endpoints REST (CRUD + filtrado + estadísticas).
-- [ ] Externalizar configuración en `application.properties`.
-- [ ] Escribir 5 pruebas unitarias/integración con `MockMvc`.
+- [x] Inicializar proyecto en `start.spring.io` (Maven, Java 21, Spring Boot 3.5.x, Web, DevTools).
+- [x] Crear estructura de paquetes `com.wposs.catalogo` (controlador, servicio, repositorio, modelo).
+- [x] Implementar modelo `Producto` como un `record` (con `BigDecimal` para precio).
+- [x] Implementar `ProductoRepositorio` usando `ConcurrentHashMap` y `AtomicLong` con carga inicial de datos.
+- [x] Implementar `ProductoServicio` con validaciones de negocio e inyección por constructor (campos `final`).
+- [x] Exponer 7 endpoints REST (CRUD + filtrado + estadísticas).
+- [x] Externalizar configuración en `application.properties`.
+- [x] Escribir 5 pruebas unitarias/integración con `MockMvc`.
 - [ ] Actualizar README con instrucciones de ejecución local.
 
 ---
 
-## 🗄️ Módulo 02: Persistencia con JPA e Hibernate
+## Módulo 02: Persistencia con JPA e Hibernate
 **Objetivo:** Migrar los datos de memoria a una base de datos PostgreSQL real usando Docker.
 
 ### Tareas Pendientes
-- [ ] Añadir dependencias de Spring Data JPA, PostgreSQL Driver y H2 (para pruebas).
-- [ ] Levantar instancia de PostgreSQL en Docker (`docker run -d --name catalogo-db...`).
-- [ ] Convertir `Producto` a `@Entity` y crear entidad `Categoria`.
-- [ ] Configurar relación `@ManyToOne` y `@OneToMany` (evitando tablas intermedias indeseadas).
-- [ ] Crear interfaces `JpaRepository` con consultas derivadas y un `@Query` con `join fetch`.
-- [ ] Solucionar problema de N+1 (demostrado en README).
-- [ ] Demostrar y solucionar la `LazyInitializationException` con `open-in-view=false`.
-- [ ] Aplicar `@Transactional` en el servicio (readOnly y modificación).
-- [ ] Escribir 7 pruebas usando `@DataJpaTest` y H2.
+- [x] Añadir dependencias de Spring Data JPA, PostgreSQL Driver y H2 (para pruebas).
+- [x] Levantar instancia de PostgreSQL en Docker (`docker run -d --name catalogo-db...`).
+- [x] Convertir `Producto` a `@Entity` y crear entidad `Categoria`.
+- [x] Configurar relación `@ManyToOne` y `@OneToMany` (evitando tablas intermedias indeseadas).
+- [x] Crear interfaces `JpaRepository` con consultas derivadas y un `@Query` con `join fetch`.
+- [x] Solucionar problema de N+1 (demostrado en README).
+- [x] Demostrar y solucionar la `LazyInitializationException` con `open-in-view=false`.
+- [x] Aplicar `@Transactional` en el servicio (readOnly y modificación).
+- [x] Escribir 7 pruebas usando `@DataJpaTest` y H2.
 
 ---
 
-## 🛡️ Módulo 03: DTOs, validaciones y manejo de errores
+## Módulo 03: DTOs, validaciones y manejo de errores
 **Objetivo:** Proteger la capa web, evitando filtrar entidades directas, validando entradas y estandarizando errores.
 
 ### Tareas Pendientes
-- [ ] Agregar dependencia `spring-boot-starter-validation`.
-- [ ] Crear `records` DTO para entrada (Nuevo/Actualizar) y salida (Resumen/Detalle).
-- [ ] Implementar mappers simples en capa `@Component`.
-- [ ] Añadir anotaciones de Bean Validation (`@NotBlank`, `@DecimalMin`, `@PositiveOrZero`) en DTOs.
-- [ ] Crear excepciones personalizadas (`RecursoNoEncontradoException`, `RecursoDuplicadoException`, etc.) que extiendan `RuntimeException`.
-- [ ] Implementar `@RestControllerAdvice` para manejar errores (404, 400, 409, 500) devolviendo siempre un `ErrorRespuesta`.
-- [ ] Demostrar rollback transaccional y ocultamiento de campos en el README.
-- [ ] Escribir 8 pruebas enfocadas en validaciones y manejo de errores.
+- [x] Agregar dependencia `spring-boot-starter-validation`.
+- [x] Crear `records` DTO para entrada (Nuevo/Actualizar) y salida (Resumen/Detalle).
+- [x] Implementar mappers simples en capa `@Component`.
+- [x] Añadir anotaciones de Bean Validation (`@NotBlank`, `@DecimalMin`, `@PositiveOrZero`) en DTOs.
+- [x] Crear excepciones personalizadas (`RecursoNoEncontradoException`, `RecursoDuplicadoException`, etc.) que extiendan `RuntimeException`.
+- [x] Implementar `@RestControllerAdvice` para manejar errores (404, 400, 409, 500) devolviendo siempre un `ErrorRespuesta`.
+- [x] Demostrar rollback transaccional y ocultamiento de campos en el README.
+- [x] Escribir 8 pruebas enfocadas en validaciones y manejo de errores.
 
 ---
 
-## 🔐 Módulo 04: Spring Security y JWT
+## Módulo 04: Spring Security y JWT
 **Objetivo:** Añadir autenticación, roles de usuario y control de acceso seguro a los endpoints.
 
 ### Tareas Pendientes
@@ -100,7 +100,7 @@ Dentro de los paquetes, deberás crear estos archivos para completar el Módulo 
 
 ---
 
-## ☁️ Módulo 05: Documentación, perfiles y despliegue
+## Módulo 05: Documentación, perfiles y despliegue
 **Objetivo:** Estandarizar la API con OpenAPI, usar Flyway, empaquetar con Docker y desplegar en la nube.
 
 ### Tareas Pendientes
