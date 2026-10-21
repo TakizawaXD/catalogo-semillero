@@ -1,16 +1,23 @@
 package com.wposs.catalogo.controlador;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wposs.catalogo.dto.ProductoRequestDTO;
 import com.wposs.catalogo.dto.ProductoResponseDTO;
+import com.wposs.catalogo.excepcion.ManejadorExcepcionesGlobal;
 import com.wposs.catalogo.excepcion.RecursoNoEncontradoException;
+import com.wposs.catalogo.configuracion.SeguridadConfiguracion;
+import com.wposs.catalogo.seguridad.ManejadorErroresSeguridad;
+import com.wposs.catalogo.servicio.ServicioJwt;
 import com.wposs.catalogo.servicio.ProductoServicio;
+import com.wposs.catalogo.servicio.UsuarioDetallesServicio;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import tools.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -21,14 +28,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ProductoControlador.class)
+@Import({SeguridadConfiguracion.class, ManejadorExcepcionesGlobal.class})
+@WithMockUser(roles = "ADMIN")
 @SuppressWarnings("null")
 public class ProductoControladorTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private ProductoServicio productoServicio;
+
+    @MockitoBean
+    private ServicioJwt servicioJwt;
+
+    @MockitoBean
+    private UsuarioDetallesServicio usuarioDetallesServicio;
+
+    @MockitoBean
+    private ManejadorErroresSeguridad manejadorErroresSeguridad;
 
     @Autowired
     private ObjectMapper objectMapper;

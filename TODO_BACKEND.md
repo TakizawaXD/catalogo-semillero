@@ -2,7 +2,7 @@
 
 Este documento contiene la hoja de ruta y la documentación futura proyectada para los 5 módulos del Backend del Catálogo WPOSS, construido con **Spring Boot 3.5.x** y **Java 21**.
 
-> **Estado actual:** Pendiente (A desarrollar en un repositorio nuevo).
+> **Estado actual:** Módulos 1-4 y primera parte del módulo 5 completados. Pendiente: Docker Compose, Actuator y despliegue real.
 
 ---
 
@@ -47,7 +47,7 @@ Dentro de los paquetes, deberás crear estos archivos para completar el Módulo 
 - [x] Exponer 7 endpoints REST (CRUD + filtrado + estadísticas).
 - [x] Externalizar configuración en `application.properties`.
 - [x] Escribir 5 pruebas unitarias/integración con `MockMvc`.
-- [ ] Actualizar README con instrucciones de ejecución local.
+- [x] Actualizar README con instrucciones de ejecución local.
 
 ---
 
@@ -86,17 +86,17 @@ Dentro de los paquetes, deberás crear estos archivos para completar el Módulo 
 **Objetivo:** Añadir autenticación, roles de usuario y control de acceso seguro a los endpoints.
 
 ### Tareas Pendientes
-- [ ] Añadir `spring-boot-starter-security` y dependencias de `jjwt` (0.12.x).
-- [ ] Crear entidad `Usuario` (id, usuario, correo, contraseña con BCrypt, rol Enum, activo).
-- [ ] Implementar `UserDetailsService` propio.
-- [ ] Crear endpoints de autenticación (`/api/auth/registro`, `/api/auth/login`, `/api/auth/yo`).
-- [ ] Implementar `ServicioJwt` (generación, validación, firma) asegurando secretos por variables de entorno.
-- [ ] Escribir `FiltroJwt` (`OncePerRequestFilter`) para interpretar `Authorization: Bearer`.
-- [ ] Configurar `SecurityFilterChain` (rutas públicas vs protegidas, `STATELESS`, `csrf.disable()`).
-- [ ] Configurar manejo de errores de seguridad (401 y 403) usando `exceptionHandling`.
-- [ ] Configurar CORS adecuadamente.
-- [ ] Escribir 9 pruebas de seguridad (`@WithMockUser`).
-- [ ] Documentar comportamiento y token JWT en el README.
+- [x] Añadir `spring-boot-starter-security` y dependencias de `jjwt` (0.12.x).
+- [x] Crear entidad `Usuario` (id, usuario, correo, contraseña con BCrypt, rol Enum, activo).
+- [x] Implementar `UserDetailsService` propio.
+- [x] Crear endpoints de autenticación (`/api/auth/registro`, `/api/auth/login`, `/api/auth/yo`).
+- [x] Implementar `ServicioJwt` (generación, validación, firma) asegurando secretos por variables de entorno.
+- [x] Escribir `FiltroJwt` (`OncePerRequestFilter`) para interpretar `Authorization: Bearer`.
+- [x] Configurar `SecurityFilterChain` (rutas públicas vs protegidas, `STATELESS`, `csrf.disable()`).
+- [x] Configurar manejo de errores de seguridad (401 y 403) usando `exceptionHandling`.
+- [x] Configurar CORS adecuadamente.
+- [x] Escribir 9 pruebas de seguridad (`@WithMockUser`).
+- [x] Documentar comportamiento y token JWT en el README.
 
 ---
 
@@ -104,11 +104,11 @@ Dentro de los paquetes, deberás crear estos archivos para completar el Módulo 
 **Objetivo:** Estandarizar la API con OpenAPI, usar Flyway, empaquetar con Docker y desplegar en la nube.
 
 ### Tareas Pendientes
-- [ ] Integrar `springdoc-openapi-starter-webmvc-ui` y añadir anotaciones de `@Tag` y `@Operation`.
-- [ ] Configurar OpenAPI para aceptar tokens JWT en Swagger UI.
-- [ ] Crear perfiles en `application.properties` (`dev`, `test`, `prod`) gestionando CORS y logging.
-- [ ] Integrar migraciones con **Flyway** (`V1__...sql`) desactivando `ddl-auto`.
-- [ ] Escribir `Dockerfile` de construcción en dos etapas (Multi-stage build).
+- [x] Integrar `springdoc-openapi-starter-webmvc-ui` y añadir anotaciones de `@Tag` y `@Operation`.
+- [x] Configurar OpenAPI para aceptar tokens JWT en Swagger UI.
+- [x] Crear perfiles en `application.properties` (`dev`, `test`, `prod`) gestionando CORS y logging.
+- [x] Integrar migraciones con **Flyway** (`V1__...sql`) desactivando `ddl-auto`.
+- [x] Escribir `Dockerfile` de construcción en dos etapas (Multi-stage build).
 - [ ] Crear `docker-compose.yaml` conectando la API y PostgreSQL con `healthcheck`.
 - [ ] Activar endpoints vitales de Actuator (`health`, `info`).
 - [ ] Realizar despliegue real (Render/Railway/VPS) gestionando variables de entorno adecuadamente.

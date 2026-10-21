@@ -1,17 +1,42 @@
-version: '3.8'
-
 services:
   catalogo-db:
     image: postgres:15-alpine
-    container_name: catalogo-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: catalogo
+      POSTGRES_USER: ${DATABASE_USERNAME:?Define DATABASE_USERNAME en .env}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Define DATABASE_PASSWORD en .env}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  catalogo-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DATABASE_URL: jdbc:postgresql://catalogo-db:5432/catalogo
+      DATABASE_USERNAME: ${DATABASE_USERNAME:?Define DATABASE_USERNAME en .env}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Define DATABASE_PASSWORD en .env}
+      JWT_SECRET_BASE64: ${JWT_SECRET_BASE64:?Define JWT_SECRET_BASE64 en .env}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:?Define CORS_ALLOWED_ORIGINS en .env}
+    depends_on:
+      catalogo-db:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
