@@ -1,40 +1,62 @@
-# Catálogo Semillero
+# 🛍️ Catálogo Semillero
 
-Aplicación web full-stack para la gestión y visualización de un catálogo de productos, desarrollada con Angular en el frontend y Spring Boot en el backend. El proyecto está orientado a la práctica de desarrollo moderno, arquitectura limpia, consumo de APIs REST, autenticación por roles y buenas prácticas de UX.
+<div align="center">
 
-## Descripción general
+![Angular](https://img.shields.io/badge/Angular-22-DD0031?style=for-the-badge&logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4-6DB33F?style=for-the-badge&logo=springboot)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql)
+![JWT](https://img.shields.io/badge/JWT-Authentication-000000?style=for-the-badge&logo=jsonwebtokens)
 
-Catálogo Semillero es un proyecto académico y de aprendizaje que simula una tienda en línea con funcionalidades de catálogo, autenticación, administración de productos, carrito de compras y navegación protegida. La solución se compone de dos partes principales:
+</div>
+
+Aplicación full-stack para la gestión y visualización de un catálogo de productos, desarrollada con Angular en el frontend y Spring Boot en el backend. Este proyecto combina una interfaz moderna con lógica de negocio real, autenticación, validaciones, persistencia y documentación de API.
+
+## 📌 Visión general
+
+Catálogo Semillero es un proyecto académico orientado a fortalecer habilidades en:
+
+- Arquitectura de software
+- Desarrollo frontend con Angular
+- Desarrollo backend con Java + Spring Boot
+- Consumo de APIs REST
+- Autenticación y autorización con JWT
+- Formulario reactivos y validación
+- Persistencia y manejo de datos
+- Buenas prácticas de UX y organización del código
+
+La solución está compuesta por dos partes claramente diferenciadas:
 
 - Frontend: Angular 22 + TypeScript + Angular Material
 - Backend: Java 21 + Spring Boot 4 + Spring Security + JPA + PostgreSQL/H2
 
-El objetivo es demostrar la integración entre una interfaz moderna y un servicio backend robusto, con separación clara de responsabilidades y estructura escalable.
+## 🎯 Objetivos del proyecto
 
-## Objetivos del proyecto
-
-- Construir una aplicación de catálogo funcional y visualmente clara
-- Consumir un backend REST con Angular
-- Implementar autenticación y control de acceso por roles
+- Construir una experiencia de catálogo funcional y escalable
+- Separar responsabilidades entre frontend y backend
+- Aplicar autenticación por roles de usuario
 - Gestionar productos, usuarios y carrito de compras
-- Aplicar validaciones y buenas prácticas de experiencia de usuario
-- Preparar la base para una solución realista y ampliable
+- Implementar formularios con validaciones reactivas
+- Facilitar la documentación de la API con Swagger
+- Crear una base sólida para continuar ampliando la aplicación
 
-## Funcionalidades principales
+## ✨ Funcionalidades principales
 
 - Catálogo de productos con listado y detalle
-- Filtro y búsqueda por categorías o criterios básicos
-- Carrito de compras con cálculo dinámico de cantidades y total
-- Persistencia del estado del carrito en localStorage
-- Autenticación de usuarios con login y registro
-- Control de acceso por roles: administrador y usuario estándar
+- Filtro por categorías y búsqueda básica
+- Vista de carrito con cálculo automático de cantidades y total
+- Persistencia del carrito en localStorage
+- Registro y login de usuarios
+- Autorización por roles: administrador y usuario estándar
 - Administración de productos y edición de datos
-- Formularios reactivos con validaciones
-- Rutas protegidas y guardas de navegación
-- Soporte para entornos de desarrollo y producción
-- Documentación de API con Swagger/OpenAPI
+- Formularios reactivos con validación de entrada
+- Rutas protegidas con guards de navegación
+- Manejo de estados de carga, error y vacío
+- Documentación de endpoints con Swagger/OpenAPI
+- Soporte para desarrollo local y entorno de producción
 
-## Stack tecnológico
+## 🧰 Stack tecnológico
 
 ### Frontend
 
@@ -46,7 +68,8 @@ El objetivo es demostrar la integración entre una interfaz moderna y un servici
 - RxJS
 - Angular Router
 - HttpClient
-- Forms reactivos
+- Reactive Forms
+- LocalStorage
 
 ### Backend
 
@@ -58,32 +81,71 @@ El objetivo es demostrar la integración entre una interfaz moderna y un servici
 - H2 Database
 - Flyway
 - JWT
-- OpenAPI / Swagger
+- OpenAPI / Swagger UI
+- Maven
 
-## Estructura del repositorio
+## 🏗️ Arquitectura del sistema
+
+El proyecto sigue un enfoque basado en capas y separación de responsabilidades:
+
+- Frontend: componentes, páginas, servicios, guards, validadores y modelos
+- Backend: controladores, servicios, repositorios, entidades, seguridad y autenticación
+- Persistencia: JPA con base de datos relacional
+- Seguridad: JWT + Spring Security
+- Comunicación: API REST sobre HTTP
+
+### Diagrama conceptual
+
+```text
+[ Angular Frontend ]
+        │
+        │ HTTP / REST
+        ▼
+[ Spring Boot API ]
+        │
+        ├── Auth Service
+        ├── Product Service
+        ├── User Service
+        ├── Security / JWT
+        └── JPA Repository Layer
+        │
+        ▼
+[ PostgreSQL / H2 ]
+```
+
+## 📁 Estructura del repositorio
 
 ```text
 catalogo-semillero/
-├── catalogo-semillero-backend/   # API REST y lógica de negocio
-├── public/                       # Archivos públicos del frontend
-├── src/                          # Código fuente del frontend Angular
-├── angular.json                  # Configuración del proyecto Angular
-├── package.json                  # Dependencias y scripts del frontend
-├── package-lock.json             # Lock file de npm
-├── netlify.toml                 # Configuración de despliegue (si aplica)
-├── vercel.json                  # Configuración de despliegue (si aplica)
-├── README.md                    # Documentación principal
-├── README-TALLER-1.md           # Documentación del taller 1
-├── README-TALLER-2.md           # Documentación del taller 2
-├── README-TALLER-3.md           # Documentación del taller 3
-├── readmeTaller4.md             # Documentación del taller 4
-├── README-TALLER-5.md           # Documentación del taller 5
-└── TODO_BACKEND.md              # Seguimiento de tareas backend
+├── catalogo-semillero-backend/      # Backend Java/Spring Boot
+│   ├── src/
+│   ├── pom.xml
+│   ├── mvnw
+│   ├── mvnw.cmd
+│   └── README.md
+├── public/                          # Archivos públicos del frontend
+├── src/                             # Código fuente del frontend Angular
+├── angular.json                     # Configuración del proyecto Angular
+├── package.json                     # Dependencias y scripts del frontend
+├── package-lock.json                # Lockfile de npm
+├── .gitignore
+├── .editorconfig
+├── .prettierrc
+├── netlify.toml                    # Configuración de despliegue opcional
+├── vercel.json                     # Configuración de despliegue opcional
+├── README.md                       # Documentación principal
+├── README-TALLER-1.md             # Documentación del taller 1
+├── README-TALLER-2.md             # Documentación del taller 2
+├── README-TALLER-3.md             # Documentación del taller 3
+├── readmeTaller4.md               # Documentación del taller 4
+├── README-TALLER-5.md             # Documentación del taller 5
+├── TODO_BACKEND.md                # Tareas pendientes del backend
+└── LICENSE                        # Si se agrega posteriormente
 ```
 
-## Requisitos previos
+## 🧪 Requisitos previos
 
-Antes de iniciar el proyecto asegúrate de tener instalado:
+Antes de ejecutar el proyecto asegúrate de contar con:
 
 - Node.js 20 o superior
 - npm 10 o superior
@@ -91,34 +153,34 @@ Antes de iniciar el proyecto asegúrate de tener instalado:
 - Maven 3.9 o superior
 - Git
 
-Opcionalmente:
+Opcional:
 
 - PostgreSQL para entorno de producción
-- IDE como IntelliJ IDEA, VS Code o Eclipse
+- VS Code, IntelliJ IDEA o Eclipse
 
-## Configuración del entorno
+## 🚀 Configuración y ejecución
 
-### Frontend
+### 1) Frontend (Angular)
 
-Instala las dependencias del proyecto Angular:
+Instala las dependencias:
 
 ```bash
 npm install
 ```
 
-Inicia la aplicación en modo desarrollo:
+Ejecuta la aplicación en modo desarrollo:
 
 ```bash
 npm start
 ```
 
-La aplicación quedará disponible en:
+La app estará disponible en:
 
 ```text
 http://localhost:4200
 ```
 
-### Backend
+### 2) Backend (Spring Boot)
 
 Desde la carpeta del backend:
 
@@ -127,11 +189,22 @@ cd catalogo-semillero-backend
 ./mvnw spring-boot:run
 ```
 
-En entorno local, el perfil por defecto usa H2 en memoria. Si deseas ejecutarlo con perfil de producción, puedes configurar las variables de entorno y activar el perfil `prod`.
+En Windows PowerShell:
 
-## Variables de entorno del backend
+```powershell
+cd catalogo-semillero-backend
+./mvnw.cmd spring-boot:run
+```
 
-El backend usa estas variables para configuración según el entorno:
+El backend quedará disponible en:
+
+```text
+http://localhost:8080
+```
+
+## 🔐 Variables de entorno
+
+El backend usa diferentes variables según el entorno de ejecución.
 
 ```bash
 JWT_SECRET_BASE64=
@@ -142,7 +215,7 @@ CORS_ALLOWED_ORIGINS=
 SPRING_PROFILES_ACTIVE=dev
 ```
 
-### Ejemplo para generación de clave JWT
+### Generar una clave JWT
 
 En PowerShell:
 
@@ -154,9 +227,24 @@ $bytes = New-Object byte[] 32
 
 Guarda el valor generado en `JWT_SECRET_BASE64` y no lo subas a Git.
 
-## Usuarios de prueba
+## 🗃️ Perfiles de ejecución
 
-El proyecto incluye credenciales de ejemplo para pruebas locales:
+El backend soporta los siguientes perfiles:
+
+- `dev`: usa H2 en memoria para desarrollo local
+- `test`: almacena datos en H2 para pruebas
+- `prod`: usa PostgreSQL y configuración de producción
+
+Ejemplo para activar producción localmente:
+
+```powershell
+$env:SPRING_PROFILES_ACTIVE = "prod"
+./mvnw.cmd spring-boot:run
+```
+
+## 👤 Usuarios de prueba
+
+Se incluyen credenciales de ejemplo para probar el sistema localmente:
 
 | Rol | Correo | Contraseña |
 | --- | --- | --- |
@@ -164,24 +252,41 @@ El proyecto incluye credenciales de ejemplo para pruebas locales:
 | Usuario estándar | `usuario@wposs.com` | `usuario123` |
 | Usuario API externa | `john@mail.com` | `changeme` |
 
-## Ejecución completa del sistema
+## 🛡️ Autenticación y autorización
 
-1. Inicia el backend
-2. Inicia el frontend
-3. Accede a la app desde `http://localhost:4200`
-4. Usa la API en `http://localhost:8080`
-5. Consulta Swagger en `http://localhost:8080/swagger-ui.html`
+El sistema utiliza JWT para proteger rutas de administración.
 
-## Documentación de API
+### Flujo principal
 
-La API expone documentación OpenAPI/Swagger. Cuando el backend está corriendo:
+1. El usuario se registra o inicia sesión
+2. El backend valida las credenciales
+3. Se genera un token JWT
+4. El cliente lo envía en el header `Authorization: Bearer <token>`
+5. El backend valida el token y autoriza el acceso
+
+### Rutas protegidas
+
+- Registro público
+- Login público
+- Consulta de productos pública
+- Gestión de productos restringida a usuarios con rol administrador
+
+## 📚 Documentación de la API
+
+La API incluye documentación OpenAPI/Swagger.
+
+Cuando el backend esté corriendo:
 
 - Swagger UI: `http://localhost:8080/swagger-ui.html`
 - OpenAPI JSON: `http://localhost:8080/v3/api-docs`
 
-Para probar rutas protegidas desde Swagger, inicia sesión en `/api/auth/login` y usa el token JWT devuelto en la autenticación del navegador.
+Para probar rutas protegidas desde Swagger:
 
-## Scripts disponibles
+1. Inicia sesión en `/api/auth/login`
+2. Copia el valor del `accessToken`
+3. Pégalo en el botón **Authorize** del Swagger UI
+
+## 🧪 Scripts disponibles
 
 ### Frontend
 
@@ -200,29 +305,30 @@ npm run watch
 ./mvnw package
 ```
 
-## Arquitectura del sistema
+## 🧩 Características del módulo frontend
 
-La aplicación sigue un enfoque basado en capas y responsabilidades bien definidas:
+- Rutas y navegación principal
+- Protección de rutas con guards
+- Formularios reactivos con validaciones
+- Carrito de compras reactivo
+- Persistencia del estado en almacenamiento local
+- Presentación modular por componentes
+- Integración con API REST
 
-- Frontend: componentes, servicios, páginas, rutas, validadores, guards
-- Backend: controladores, servicios, repositorios, entidades, seguridad, autenticación
-- Persistencia: JPA + base de datos relacional
-- Autorización: roles y JWT
-- Comunicación: API REST sobre HTTP
+## 🧱 Características del módulo backend
 
-## Estándar de desarrollo
+- CRUD de productos
+- Gestión de usuarios
+- Seguridad con JWT
+- Encriptación de contraseñas con BCrypt
+- Validación de entrada con Bean Validation
+- Persistencia con JPA
+- Migrations con Flyway
+- Configuración por perfiles de entorno
 
-El proyecto se desarrolla con una estructura ordenada y mantenible, priorizando:
+## 📖 Documentación por taller
 
-- separación de responsabilidades
-- componentes reutilizables
-- validaciones centradas en la experiencia de usuario
-- manejo seguro de sesiones y tokens
-- escalabilidad y claridad en el código
-
-## Documentación por taller
-
-El proyecto se desarrolló en varias etapas con documentación específica:
+El proyecto se desarrolló en varias etapas. Puedes consultar cada entrega por separado:
 
 - [Taller 1](./README-TALLER-1.md)
 - [Taller 2](./README-TALLER-2.md)
@@ -230,29 +336,38 @@ El proyecto se desarrolló en varias etapas con documentación específica:
 - [Taller 4](./readmeTaller4.md)
 - [Taller 5](./README-TALLER-5.md)
 
-## Estado del proyecto
+## 📈 Estado del proyecto
 
-Este repositorio representa un proyecto en desarrollo académico con enfoque práctico en frontend y backend. Actualmente se trabaja con una arquitectura funcional, modular y lista para seguir ampliando funcionalidades.
+El repositorio se encuentra en desarrollo académico y evolutivo. La base funcional ya está definida y organizada, con un enfoque práctico en Angular y Spring Boot, lista para continuar expandiéndose con nuevas funcionalidades.
 
-## Mejoras futuras
+## 🚀 Mejoras futuras
 
-- Integración con más módulos administrativos
 - Mejoras en filtros y búsqueda avanzada
 - Paginación y ordenamiento de resultados
+- Dashboard administrativo con métricas
 - Gestión más completa de usuarios y permisos
-- Dashboard con métricas de negocio
-- Pruebas E2E con Playwright o Cypress
-- Pipeline CI/CD para automatización
-- Optimización de rendimiento y carga de imágenes
+- Pruebas E2E con Playwright/Cypress
+- Pipeline CI/CD
+- Optimización de rendimiento e imágenes
+- Internacionalización (i18n)
 
-## Licencia
+## 🤝 Contribución
 
-Este proyecto se comparte como material académico y de aprendizaje dentro del contexto del semillero. Se recomienda conservar la atribución de autoría y referenciar el repositorio original en caso de reutilización o extensión.
+Si deseas colaborar en el proyecto:
 
-## Agradecimientos
+1. Haz un fork del repositorio
+2. Crea una rama para tu funcionalidad
+3. Realiza tus cambios con buena documentación
+4. Envía un pull request con una descripción clara
 
-Proyecto desarrollado dentro del semillero WPOSS, enfocado en la aplicación práctica de tecnologías modernas, arquitectura de software y aprendizaje colaborativo.
+## 📄 Licencia
+
+Este proyecto se comparte como material académico y de aprendizaje dentro del contexto del semillero. Se recomienda mantener la atribución de autoría y referenciar el repositorio original en caso de reutilización o ampliación.
+
+## 🙌 Agradecimientos
+
+Proyecto desarrollado dentro del semillero WPOSS con enfoque en aprendizaje práctico, arquitectura de software, desarrollo web moderno y aplicación real de tecnologías actuales.
 
 ---
 
-Catálogo Semillero es una base sólida para proyectos de e-commerce académico, con enfoque en calidad, arquitectura, experiencia de usuario y buenas prácticas de desarrollo.
+Catálogo Semillero representa una base sólida para un sistema de comercio digital académico, con buena separación de responsabilidades, autenticación real, validaciones y una estructura lista para continuar evolucionando.
